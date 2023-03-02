@@ -1,20 +1,21 @@
-class NeuralNetwork {
-    points = [];
-    learnrate = 0.01;
-    trainIndex = 0;
+positions = [];
+learnrate = 0.01;
+trainIndex = 0;
 
-    constructor(RandomHeightMax, RandomWidthMax) {
-        w1 = random(-1, 1);
-        w2 = random(-1, 1);
-        for (let i = 0; i < 100; i++) {
-            points.push(
+class NeuralNetwork {
+    constructor(RandomHeightMax, RandomWidthMax, size) {
+        this.w1 = random(-1, 1);
+        this.w2 = random(-1, 1);
+        for (let i = 0; i < size; i++) {
+            positions.push(
                 new Point(random(RandomHeightMax), random(RandomWidthMax))
             );
         }
     }
+
     guess(x, y) {
-        let value = w1 * x + w2 * y;
-        if (value >= 0) {
+        let valuev = this.w1 * x + this.w2 * y;
+        if (valuev >= 0) {
             return 1;
         } else {
             return -1;
@@ -22,53 +23,55 @@ class NeuralNetwork {
     }
 
     trainAllNeurons() {
-        for (let i = 0; i < points.length; i++) {
-            let x = points[i].x;
-            let y = points[i].y;
+        for (let i = 0; i < positions.length; i++) {
+            let x = positions[i].x;
+            let y = positions[i].y;
 
-            let label = points[i].label;
-            let guess = guess(x, y);
-            let error = label - guess;
+            let label = positions[i].label;
+            positions[i].guess = this.guess(x, y);
+            let error = label - positions[i].guess;
 
-            w1 += error * x * learnrate;
-            w2 += error * y * learnrate;
+            this.w1 += error * x * learnrate;
+            this.w2 += error * y * learnrate;
         }
     }
-    trainSingleNeuron() {
-        console.log("training");
-        let x = points[trainIndex].x;
-        let y = points[trainIndex].y;
+    train10Times() {
+        for (let i = 0; i < 10; i++) {
+            let x = positions[trainIndex].x;
+            let y = positions[trainIndex].y;
 
-        let label = points[trainIndex].label;
-        let guess = guess(x, y);
+            let label = positions[trainIndex].label;
+            positions[trainIndex].guess = this.guess(x, y);
 
-        let error = label - guess;
-        w1 += error * x * learnrate;
-        w2 += error * y * learnrate;
+            let error = label - positions[trainIndex].guess;
+            this.w1 += error * x * learnrate;
+            this.w2 += error * y * learnrate;
 
-        trainIndex++;
-        if (trainIndex == points.length) {
-            trainIndex = 0;
+            trainIndex++;
+            if (trainIndex == positions.length) {
+                trainIndex = 0;
+            }
         }
     }
     show() {
         push();
         stroke(0);
-        for (let i = 0; i < points.length; i++) {
-            if (points[i].label == 1) {
+        for (let i = 0; i < positions.length; i++) {
+            if (positions[i].guess == 1) {
                 fill(0, 0, 255);
             } else {
                 fill(0, 255, 0);
             }
-            ellipse(points[i].x, points[i].y, 8, 8);
+            ellipse(positions[i].x, positions[i].y + 50, 8, 8);
         }
         pop();
     }
 }
 class Point {
-    Point(x, y) {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.guess;
         if (x > y) {
             this.label = 1;
         } else {

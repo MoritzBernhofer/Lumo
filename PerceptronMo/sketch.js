@@ -6,13 +6,14 @@ function setup() {
     createCanvas(400, 400);
     pointCreationHeight = height - 50;
     pointCreationWidth = width;
-    brain = new NeuralNetwork(pointCreationHeight, pointCreationWidth);
+    brain = new NeuralNetwork(pointCreationWidth, pointCreationHeight, 500);
 }
 
 function draw() {
+    line(0, 0, width, height);
     background(155);
     brain.show();
 }
 function mousePressed() {
-    brain.trainAllNeurons();
+    brain.train10Times();
 }
