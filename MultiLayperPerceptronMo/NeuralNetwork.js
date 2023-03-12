@@ -20,7 +20,7 @@ class NeuralNetwork {
         return this.activate(sum);
     }
     activate(sum) {
-        return 1 / (1 + Math.exp(-z / 2)); //Sigmund function
+        return 1 / (1 + Math.exp(-sum / 2)); //Sigmund function
     }
     show() {
         push();
@@ -40,7 +40,8 @@ class Point {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.guess;
+        this.guess1;
+        this.guess2;
         if (x > y) {
             this.label = 1;
         } else {
