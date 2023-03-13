@@ -51,8 +51,7 @@ class Bird {
     }
 
     up() {
-        this.velocity = 0;
-        this.velocity += this.lift;
+        this.velocity = this.lift;
     }
 
     mutate() {
