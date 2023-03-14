@@ -1,0 +1,15 @@
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.exe
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.deps.json
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.runtimeconfig.json
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.dll
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.pdb
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.csproj.AssemblyReference.cache
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.AssemblyInfoInputs.cache
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.AssemblyInfo.cs
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.csproj.CoreCompileInputs.cache
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.dll
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\refint\NumberRecognition.dll
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.pdb
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.genruntimeconfig.cache
+C:\Users\flyti\Desktop\ToDo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\ref\NumberRecognition.dll
