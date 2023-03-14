@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\flyti\\Desktop\\ToDo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj": {}
+    "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj": {}
   },
   "projects": {
-    "C:\\Users\\flyti\\Desktop\\ToDo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj": {
+    "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\flyti\\Desktop\\ToDo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
+        "projectUniqueName": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
         "projectName": "NumberRecognition",
-        "projectPath": "C:\\Users\\flyti\\Desktop\\ToDo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
+        "projectPath": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
         "packagesPath": "C:\\Users\\flyti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\flyti\\Desktop\\ToDo\\NumberRecognition\\NumberRecognition\\obj\\",
+        "outputPath": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
