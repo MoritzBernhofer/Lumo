@@ -20,28 +20,28 @@
 
                 //here bytes
                 Array.Reverse(bytes);
-                bytes = Reverse(bytes);
+                bytes = ReversY180Deg(bytes);
 
                 images[i] = new(bytes, datalabels[i], new System.Numerics.Vector2(28, 28));
             }
 
             return images;
         }
-        private static byte[] Reverse(byte[] bytes) {
-            byte[,] array = ConvertTo2D(bytes);
+        private static byte[] ReversY180Deg(byte[] bytes) {
+            byte[,] array = ConvertTo2DArray(bytes);
             byte[,] result = new byte[imageSizeSqrt, imageSizeSqrt];
 
             for (int i = 0; i < array.Length; i++) {
                 result[i % imageSizeSqrt, imageSizeSqrt - 1 - i / imageSizeSqrt] = array[i % imageSizeSqrt, i / imageSizeSqrt];
             }
 
-            return ConvertTo1D(result);
+            return ConvertTo1DArray(result);
         }
 
-        private static byte[] ConvertTo1D(byte[,] bytes)
+        private static byte[] ConvertTo1DArray(byte[,] bytes)
             => bytes.Cast<byte>().ToArray();
 
-        private static byte[,] ConvertTo2D(byte[] bytes, int height = 28, int width = 28) {
+        private static byte[,] ConvertTo2DArray(byte[] bytes, int height = 28, int width = 28) {
             byte[,] output = new byte[height, width];
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
