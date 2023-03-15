@@ -1,4 +1,4 @@
-﻿using NumberRecognition.NeuralNetwork;
+﻿/*using NumberRecognition.NeuralNetwork;
 
 public class ActivationFunction {
     public Func<double, double> Func;
@@ -159,4 +159,4 @@ public class NeuralNetwork {
         double normal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
         return mean + stdDev * normal; //random normal(mean,stdDev^2)
     }
-}
+}*/
