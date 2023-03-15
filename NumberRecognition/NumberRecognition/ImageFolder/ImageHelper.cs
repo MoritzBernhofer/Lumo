@@ -4,11 +4,10 @@
         private static int imageSizeSqrt = (int)Math.Sqrt(imageSize);
         private static int[] byteNumbers = { 128, 64, 32, 16, 8, 4, 2, 1 };
 
-        public static Image[] LoadImages(string datapath, string labelpath) {
-            var data = File.ReadAllBytes("../../../Images Mnist.bytes");
-            var datalabels = File.ReadAllBytes("../../../Labels Mnist.bytes");
+        public static Image[] LoadImages(string datapath = "../../../Images Mnist.bytes", string labelpath = "../../../Labels Mnist.bytes") {
+            var data = File.ReadAllBytes(datapath);
+            var datalabels = File.ReadAllBytes(labelpath);
             Image[] images = new Image[data.Length / imageSize];
-
 
             int counter = 0;
             for (int i = 0; i < data.Length / imageSize; i++) {
@@ -16,7 +15,6 @@
 
                 for (int j = 0; j < bytes.Length; j++)
                     bytes[j] = data[counter++];
-
 
                 //here bytes
                 Array.Reverse(bytes);
@@ -43,11 +41,13 @@
 
         private static byte[,] ConvertTo2DArray(byte[] bytes, int height = 28, int width = 28) {
             byte[,] output = new byte[height, width];
+
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
                     output[i, j] = bytes[i * width + j];
                 }
             }
+
             return output;
         }
     }
