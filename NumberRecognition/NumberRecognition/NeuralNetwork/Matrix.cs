@@ -1,9 +1,9 @@
-namespace NumberRecognition.AI_or_so; 
+namespace NumberRecognition.NeuralNetwork;
 
 public class Matrix {
-    
-    
+
+
     public Matrix(int rows, int cols) {
-        
+
     }
 }
