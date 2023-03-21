@@ -1,10 +1,10 @@
-﻿/*using NumberRecognition.NeuralNetwork;
+﻿using NumberRecognition.NeuralNetwork;
 
 public class ActivationFunction {
-    public Func<double, double> Func;
-    public Func<double, double> Dfunc;
+    public Func<float, float> Func;
+    public Func<float, float> Dfunc;
 
-    public ActivationFunction(Func<double, double> func, Func<double, double> dfunc) {
+    public ActivationFunction(Func<float, float> func, Func<float, float> dfunc) {
         this.Func = func;
         this.Dfunc = dfunc;
     }
@@ -19,8 +19,8 @@ public class NeuralNetwork {
     private Matrix bias_h;
     private Matrix bias_o;
     private ActivationFunction activation_function;
-    private double learning_rate;
-    private double[] data;
+    private float learning_rate;
+    private float[] data;
 
     public NeuralNetwork(int a, int b, int c) {
         this.input_nodes = a;
@@ -37,11 +37,11 @@ public class NeuralNetwork {
         this.bias_h.Randomize();
         this.bias_o.Randomize();
 
-        this.data = new double[0];
+        this.data = new float[0];
 
         // TODO: copy these as well
-        this.learning_rate = 0.1;
-        this.activation_function = new ActivationFunction((x) => 1 / (1 + Math.Exp(-x)), (y) => y * (1 - y));
+        this.learning_rate = 0.1f;
+        this.activation_function = new ActivationFunction((x) => (float)(1 / (1 + Math.Exp(-x))), (y) => y * (1 - y));
     }
 
     public NeuralNetwork(NeuralNetwork nn) {
@@ -55,16 +55,16 @@ public class NeuralNetwork {
         this.bias_h = nn.bias_h;
         this.bias_o = nn.bias_o;
 
-        this.data = new double[0];
+        this.data = new float[0];
 
-        this.learning_rate = 0.1;
-        this.activation_function = new ActivationFunction((x) => 1 / (1 + Math.Exp(-x)), (y) => y * (1 - y));
+        this.learning_rate = 0.1f;
+        this.activation_function = new ActivationFunction((x) => (float)(1 / (1 + Math.Exp(-x))), (y) => y * (1 - y));
     }
-    private double GetRandomDouble(double minimum, double maximum) {
+    private float GetRandomfloat(float minimum, float maximum) {
         Random random = new Random();
-        return random.NextDouble() * (maximum - minimum) + minimum;
+        return (float)random.NextDouble() * (maximum - minimum) + minimum;
     }
-    public double[] Predict(double[] input_array) {
+    public float[] Predict(float[] input_array) {
         this.data = input_array;
 
         Matrix inputs = Matrix.FromArray(input_array);
@@ -79,7 +79,7 @@ public class NeuralNetwork {
         
         return output.ToArray();
     }
-    public void Train(double[] input_array, double[] target_array) {
+    public void Train(float[] input_array, float[] target_array) {
         // Generating the Hidden Outputs
         Matrix inputs = Matrix.FromArray(input_array);
         Matrix hidden = Matrix.Multiply(this.weights_ih, inputs);
@@ -127,21 +127,21 @@ public class NeuralNetwork {
 
         // Calcuate input->hidden deltas
         Matrix inputs_T = Matrix.Transpose(hidden_errors);
-        Matrix weight_ih_deltas = Matrix.multiply(hidden_gradient, inputs_T);
+        Matrix weight_ih_deltas = Matrix.Multiply(hidden_gradient, inputs_T);
 
-        this.weights_ih.add(weight_ih_deltas);
+        this.weights_ih.Add(weight_ih_deltas);
 
-        this.bias_h.add(hidden_gradient);
+        this.bias_h.Add(hidden_gradient);
     }
     public NeuralNetwork Copy() {
         return new NeuralNetwork(this);
     }
 
-    public void Mutate(double rate) {
-        double Mutate(double val) {
-            if (new Random().NextDouble() < rate) {
-                // return 2 * new Random().NextDouble() - 1;
-                return val + randomGaussian(0, 0.1); //Assuming randomGaussian is defined elsewhere
+    public void Mutate(float rate) {
+        float Mutate(float val) {
+            if ((float)new Random().NextDouble() < rate) {
+                // return 2 * new Random().Nextfloat() - 1;
+                return val + randomGaussian(0, 0.1f); //Assuming randomGaussian is defined elsewhere
             }
             else {
                 return val;
@@ -153,10 +153,10 @@ public class NeuralNetwork {
         Array.ForEach(this.bias_o, x => Mutate(x));
     }
     private static Random random = new Random();
-    private static double randomGaussian(double mean, double stdDev) {
-        double u1 = 1.0 - random.NextDouble(); //uniform(0,1] random doubles
-        double u2 = 1.0 - random.NextDouble();
-        double normal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
+    private static float randomGaussian(float mean, float stdDev) {
+        float u1 = 1.0 - random.Nextfloat(); //uniform(0,1] random floats
+        float u2 = 1.0 - random.Nextfloat();
+        float normal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
         return mean + stdDev * normal; //random normal(mean,stdDev^2)
     }
-}*/
+}
