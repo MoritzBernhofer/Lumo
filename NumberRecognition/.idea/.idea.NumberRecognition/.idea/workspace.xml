@@ -3,20 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="75f11a03-3d73-4fa6-b1fe-a68aabc70b16" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NumberRecognition/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NumberRecognition/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/NeuralNetwork/Matrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/NeuralNetwork/Matrix.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NumberRecognition/NeuralNetwork/nn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/NeuralNetwork/nn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/bin/Debug/net7.0/NumberRecognition.dll" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/bin/Debug/net7.0/NumberRecognition.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/bin/Debug/net7.0/NumberRecognition.exe" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/bin/Debug/net7.0/NumberRecognition.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/bin/Debug/net7.0/NumberRecognition.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/bin/Debug/net7.0/NumberRecognition.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/NumberRecognition.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/NumberRecognition.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/NumberRecognition.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/NumberRecognition.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.dll" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.genruntimeconfig.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/NumberRecognition.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/ref/NumberRecognition.dll" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/ref/NumberRecognition.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/refint/NumberRecognition.dll" beforeDir="false" afterPath="$PROJECT_DIR$/NumberRecognition/obj/Debug/net7.0/refint/NumberRecognition.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +78,7 @@
       <workItem from="1678864646794" duration="8129000" />
       <workItem from="1678889651208" duration="517000" />
       <workItem from="1679397321249" duration="876000" />
+      <workItem from="1679398286775" duration="660000" />
     </task>
     <servers />
   </component>

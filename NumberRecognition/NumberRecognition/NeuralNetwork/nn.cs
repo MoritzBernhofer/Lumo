@@ -147,16 +147,16 @@ public class NeuralNetwork {
                 return val;
             }
         }
-        Array.ForEach(this.weights_ih, x => Mutate(x));
-        Array.ForEach(this.weights_ho, x => Mutate(x));
-        Array.ForEach(this.bias_h, x => Mutate(x));
-        Array.ForEach(this.bias_o, x => Mutate(x));
+        Matrix.Map(this.weights_ih, x => Mutate(x));
+        Matrix.Map(this.weights_ho, x => Mutate(x));
+        Matrix.Map(this.bias_h, x => Mutate(x));
+        Matrix.Map(this.bias_o, x => Mutate(x));
     }
     private static Random random = new Random();
     private static float randomGaussian(float mean, float stdDev) {
-        float u1 = 1.0 - random.Nextfloat(); //uniform(0,1] random floats
-        float u2 = 1.0 - random.Nextfloat();
-        float normal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
+        float u1 = 1.0f - (float)random.NextDouble(); //uniform(0,1] random floats
+        float u2 = 1.0f - (float)random.NextDouble();
+        float normal = (float)Math.Sqrt(-2.0 * Math.Log(u1)) * (float)Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
         return mean + stdDev * normal; //random normal(mean,stdDev^2)
     }
 }

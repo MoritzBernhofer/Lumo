@@ -51,3 +51,10 @@ C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\Nu
 C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.dll
 C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\refint\NumberRecognition.dll
 C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.pdb
+C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.exe
+C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.deps.json
+C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.runtimeconfig.json
+C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.dll
+C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.pdb
+C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.genruntimeconfig.cache
+C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\ref\NumberRecognition.dll
