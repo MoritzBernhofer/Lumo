@@ -11,6 +11,8 @@ public class ActivationFunction {
 }
 
 public class NeuralNetwork {
+    public static float LearningRate => 0.1f;
+    
     private int input_nodes;
     private int hidden_nodes;
     private int output_nodes;
@@ -19,7 +21,6 @@ public class NeuralNetwork {
     private Matrix bias_h;
     private Matrix bias_o;
     private ActivationFunction activation_function;
-    private float learning_rate;
     private float[] data;
 
     public NeuralNetwork(int a, int b, int c) {
@@ -40,7 +41,6 @@ public class NeuralNetwork {
         this.data = new float[0];
 
         // TODO: copy these as well
-        this.learning_rate = 0.1f;
         this.activation_function = new ActivationFunction((x) => (float)(1 / (1 + Math.Exp(-x))), (y) => y * (1 - y));
     }
 
@@ -57,7 +57,6 @@ public class NeuralNetwork {
 
         this.data = new float[0];
 
-        this.learning_rate = 0.1f;
         this.activation_function = new ActivationFunction((x) => (float)(1 / (1 + Math.Exp(-x))), (y) => y * (1 - y));
     }
     private float GetRandomfloat(float minimum, float maximum) {
@@ -102,7 +101,7 @@ public class NeuralNetwork {
         // Calculate gradient
         Matrix gradients = Matrix.Map(outputs, this.activation_function.Dfunc);
         gradients.Multiply(output_errors);
-        gradients.Multiply(this.learning_rate);
+        gradients.Multiply(LearningRate);
 
         // Calculate deltas
         Matrix hidden_T = Matrix.Transpose(hidden);
@@ -123,7 +122,7 @@ public class NeuralNetwork {
             this.activation_function.Dfunc
         );
         hidden_gradient.Multiply(hidden_errors);
-        hidden_gradient.Multiply(this.learning_rate);
+        hidden_gradient.Multiply(LearningRate);
 
         // Calcuate input->hidden deltas
         Matrix inputs_T = Matrix.Transpose(hidden_errors);

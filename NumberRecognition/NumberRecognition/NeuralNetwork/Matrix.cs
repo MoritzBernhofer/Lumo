@@ -14,7 +14,7 @@ public class Matrix {
         InitializeArray();
     }
 
-    public Matrix(Matrix matrix) {
+    private Matrix(Matrix matrix) {
         this.data = new float[matrix.data.GetLength(0), matrix.data.GetLength(1)];
         InitializeArray(matrix);
     }
