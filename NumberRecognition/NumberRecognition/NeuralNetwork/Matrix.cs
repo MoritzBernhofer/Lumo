@@ -23,11 +23,10 @@ public class Matrix {
         return new Matrix(this);
     }
 
-    public static Matrix FromArray(float[] array) {
+    public static Matrix FromArray(byte[] array) {
         Matrix result = new Matrix(array.Length, 1);
         for (int i = 0; i < array.Length; i++)
             result.data[i, 0] = array[i];
-
         return result;
     }
 
@@ -35,59 +34,59 @@ public class Matrix {
         Matrix result = new Matrix(a.data.GetLength(0), a.data.GetLength(1));
         if (MatrixCompatible(a, b))
             for (int i = 0; i < a.rows; i++)
-            for (int j = 0; j < a.cols; j++)
-                result.data[i, j] = a.data[i, j] - b.data[i, j];
+                for (int j = 0; j < a.cols; j++)
+                    result.data[i, j] = a.data[i, j] - b.data[i, j];
         return result;
     }
 
     public void Add(Matrix matrix) {
         if (MatrixCompatible(this, matrix))
             for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
-                data[i, j] += matrix.data[i, j];
+                for (int j = 0; j < cols; j++)
+                    data[i, j] += matrix.data[i, j];
     }
 
     public static Matrix Multiply(Matrix a, Matrix b) {
         Matrix result = new Matrix(a.data.GetLength(0), a.data.GetLength(1));
         if (MatrixCompatible(a, b))
             for (int i = 0; i < a.rows; i++)
-            for (int j = 0; j < a.cols; j++)
-                result.data[i, j] = a.data[i, j] * b.data[i, j];
+                for (int j = 0; j < a.cols; j++)
+                    result.data[i, j] = a.data[i, j] * b.data[i, j];
         return result;
     }
 
     public void Multiply(Matrix matrix) {
         if (MatrixCompatible(this, matrix))
             for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
-                data[i, j] *= matrix.data[i, j];
+                for (int j = 0; j < cols; j++)
+                    data[i, j] *= matrix.data[i, j];
     }
 
     public void Multiply(float value) {
         for (int i = 0; i < rows; i++)
-        for (int j = 0; j < cols; j++)
-            data[i, j] *= value;
+            for (int j = 0; j < cols; j++)
+                data[i, j] *= value;
     }
 
     public static Matrix Map(Matrix matrix, Func<float, float> func) {
         Matrix result = new Matrix(matrix.rows, matrix.cols);
         for (int i = 0; i < matrix.rows; i++)
-        for (int j = 0; j < matrix.cols; j++)
-            result.data[i, j] = func(result.data[i, j]);
+            for (int j = 0; j < matrix.cols; j++)
+                result.data[i, j] = func(result.data[i, j]);
         return result;
     }
 
     public void Map(Func<float, float> func) {
         for (int i = 0; i < rows; i++)
-        for (int j = 0; j < cols; j++)
-            data[i, j] = func(data[i, j]);
+            for (int j = 0; j < cols; j++)
+                data[i, j] = func(data[i, j]);
     }
 
     public float[] ToArray() {
         float[] result = new float[data.Length];
         for (int i = 0; i < rows; i++)
-        for (int j = 0; j < cols; j++)
-            result[i * rows + j] = data[i, j];
+            for (int j = 0; j < cols; j++)
+                result[i * rows + j] = data[i, j];
         return result;
     }
 
@@ -102,8 +101,8 @@ public class Matrix {
     public static Matrix Transpose(Matrix matrix) {
         Matrix result = new Matrix(matrix.rows, matrix.cols);
         for (int i = 0; i < matrix.rows; i++)
-        for (int j = 0; j < matrix.cols; j++)
-            result.data[i, j] = matrix.data[j, i];
+            for (int j = 0; j < matrix.cols; j++)
+                result.data[i, j] = matrix.data[j, i];
         return result;
     }
 

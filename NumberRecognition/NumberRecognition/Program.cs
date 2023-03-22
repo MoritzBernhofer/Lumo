@@ -9,18 +9,25 @@ class Program {
     static void Main(string[] args) {
         Image[] images = ImageHelper.LoadImages("../../../Images Mnist.bytes", "../../../Labels Mnist.bytes");
         //70k images
-        BigBrain[] bigBrains = new BigBrain[200];
+
+        BigBrain[] bigBrains = new BigBrain[2];
         for (int i = 0; i < bigBrains.Length; i++)
             bigBrains[i] = new BigBrain(784, 16, 10);
-        Console.WriteLine("Hallo");
-        for (int i = 0; i < images.Length; i++) {
-            for (int j = 0; j < bigBrains.Length; j++) {
-                bigBrains[j].Train(images[i]);
-            }
+
+        Console.WriteLine("Starting tasks");
+
+        List<Task> tasks = new();
+
+        DateTime now = DateTime.Now;
+        for (int i = 0; i < bigBrains.Length; i++) {
             Console.WriteLine(i);
+            tasks.Add(new Task(() => { bigBrains[i].Train(images, i); }));
+            tasks[i].Start();
         }
 
-        
+        Console.ReadKey();
+        Console.WriteLine(DateTime.Now - now);
+
         int counter = 0;
         char input = ' ';
         while (input != 'n') {
@@ -30,13 +37,5 @@ class Program {
             Console.Clear();
             input = Convert.ToChar(Console.ReadKey());
         }
-    }
-
-    public static byte GetValueOfHighest(float[] array) {
-        byte highest = 0;
-        for (byte i = 0; i < array.Length; i++)
-            if (array[i] > array[highest]) 
-                highest = i;
-        return highest;
     }
 }

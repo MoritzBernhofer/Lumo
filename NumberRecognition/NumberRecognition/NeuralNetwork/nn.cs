@@ -21,7 +21,7 @@ public class NeuralNetwork {
     private Matrix bias_h;
     private Matrix bias_o;
     private ActivationFunction activation_function;
-    private float[] data;
+    private byte[] data;
 
     public NeuralNetwork(int a, int b, int c) {
         this.input_nodes = a;
@@ -38,7 +38,7 @@ public class NeuralNetwork {
         this.bias_h.Randomize();
         this.bias_o.Randomize();
 
-        this.data = new float[0];
+        this.data = new byte[0];
 
         // TODO: copy these as well
         this.activation_function = new ActivationFunction((x) => (float)(1 / (1 + Math.Exp(-x))), (y) => y * (1 - y));
@@ -55,7 +55,7 @@ public class NeuralNetwork {
         this.bias_h = nn.bias_h;
         this.bias_o = nn.bias_o;
 
-        this.data = new float[0];
+        this.data = new byte[0];
 
         this.activation_function = new ActivationFunction((x) => (float)(1 / (1 + Math.Exp(-x))), (y) => y * (1 - y));
     }
@@ -63,7 +63,7 @@ public class NeuralNetwork {
         Random random = new Random();
         return (float)random.NextDouble() * (maximum - minimum) + minimum;
     }
-    public float[] Predict(float[] input_array) {
+    public float[] Predict(byte[] input_array) {
         this.data = input_array;
 
         Matrix inputs = Matrix.FromArray(input_array);
@@ -78,7 +78,7 @@ public class NeuralNetwork {
         
         return output.ToArray();
     }
-    public void Train(float[] input_array, float[] target_array) {
+    public void Train(byte[] input_array, byte[] target_array) {
         // Generating the Hidden Outputs
         Matrix inputs = Matrix.FromArray(input_array);
         Matrix hidden = Matrix.Multiply(this.weights_ih, inputs);

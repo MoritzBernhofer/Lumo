@@ -8,23 +8,23 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\lucah\\.nuget\\packages\\": {},
+    "C:\\Users\\flyti\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Desktop\\Projekte\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
+      "projectUniqueName": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
       "projectName": "NumberRecognition",
-      "projectPath": "C:\\Desktop\\Projekte\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
-      "packagesPath": "C:\\Users\\lucah\\.nuget\\packages\\",
-      "outputPath": "C:\\Desktop\\Projekte\\Lumo\\NumberRecognition\\NumberRecognition\\obj\\",
+      "projectPath": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
+      "packagesPath": "C:\\Users\\flyti\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\lucah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\flyti\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -67,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -19,15 +19,25 @@ public class BigBrain {
         this.nn = nn;
     }
 
-    public float[] Train(Image img) {
-        float[] result = nn.Predict(img.ImageData);
-        float sum = result.Sum();
-        float[] certanty = new float[result.Length];
-        if (img.Value == Program.GetValueOfHighest(certanty))
-            score++;
+    public void Train(Image[] images, int id) {
+        for (int i = 0; i < images.Length; i++) {
+            float[] result = nn.Predict(images[i].ImageData);
+            score += (GetValueOfHighest(result) == images[i].Value) ? 1 : 0;
+        }
+    }
 
-        for (int i = 0; i < result.Length; i++)
-            certanty[i] = result[i] / sum * 100;
-        return result;
+    public void Train(Image image) {
+        float[] result = nn.Predict(image.ImageData);
+        if (GetValueOfHighest(result) ==  image.Value) {
+            score++;
+        }
+    }
+
+    private byte GetValueOfHighest(float[] array) {
+        byte highest = 0;
+        for (byte i = 0; i < array.Length; i++)
+            if (array[i] > array[highest])
+                highest = i;
+        return highest;
     }
 }
