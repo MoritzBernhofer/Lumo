@@ -1,0 +1,17 @@
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\bin\Debug\net7.0-windows\DemoWinForm2.exe
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\bin\Debug\net7.0-windows\DemoWinForm2.deps.json
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\bin\Debug\net7.0-windows\DemoWinForm2.runtimeconfig.json
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\bin\Debug\net7.0-windows\DemoWinForm2.dll
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\bin\Debug\net7.0-windows\DemoWinForm2.pdb
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.csproj.AssemblyReference.cache
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.Form1.resources
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.csproj.GenerateResource.cache
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.AssemblyInfoInputs.cache
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.AssemblyInfo.cs
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.csproj.CoreCompileInputs.cache
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.dll
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\refint\DemoWinForm2.dll
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.pdb
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\DemoWinForm2.genruntimeconfig.cache
+C:\Users\flyti\Documents\GitHubONLY\Lumo\DemoWinForm2\DemoWinForm2\obj\Debug\net7.0-windows\ref\DemoWinForm2.dll
