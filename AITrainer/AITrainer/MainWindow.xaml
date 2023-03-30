@@ -6,12 +6,18 @@
         xmlns:local="clr-namespace:AITrainer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStyle="None">
-    <Window.Background>
-        <SolidColorBrush Opacity="0.98" Color="#6A6B6E"/>
-    </Window.Background>
-    <Grid>
+        ResizeMode="CanResizeWithGrip" AllowsTransparency="True"
+        WindowStyle="None" x:Name="MainTab">
+    <Grid MouseDown="Grid_MouseDown">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#6A6B6E" Offset="0"/>
+                <GradientStop Color="#082030" Offset="0.3"/>
+                <GradientStop Color="#082359" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
+            <RowDefinition Height="35*"/>
             <RowDefinition Height="203*"/>
             <RowDefinition Height="170*"/>
             <RowDefinition Height="61*"/>
@@ -21,5 +27,71 @@
             <ColumnDefinition Width="197*"/>
             <ColumnDefinition Width="357*"/>
         </Grid.ColumnDefinitions>
+        <!--Nav Bar-->
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                   Opacity="0.35" Background="#A6A6A6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <!-- Title -->
+                <TextBlock Grid.Column="0" Text="Lumo" FontSize="20"
+                           VerticalAlignment="Center" Margin="10,0,0,0"
+                           Foreground="Black" FontWeight="SemiBold"/>
+                <!-- Minimize Button -->
+                <Button Grid.Column="1" Width="30" 
+                        Height="30" Margin="5,0,5,0"
+                        Padding="0,-15,0,0"
+                        Content="_" FontSize="16" 
+                        Background="Transparent" 
+                        Foreground="Black" FontWeight="SemiBold" BorderThickness="0"
+                        HorizontalContentAlignment="Center" 
+                        VerticalContentAlignment="Center" Click="Minimize_Window"/>
+                
+                <!-- Maximise Button -->
+                <Button  Grid.Column="2" Width="30"
+                        Height="30" Margin="5,-3,0,0" FontSize="16" 
+                        Background="Transparent"
+                        Foreground="Black" FontWeight="Bold" BorderThickness="0" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="□" Click="Maximize_Window"/>
+                
+                <!-- Close Button -->
+                <Button Grid.Column="3" Width="30"
+                        Height="30" Margin="5,0,10,0" 
+                        Content="X" FontSize="16" 
+                        Background="Transparent"
+                        Foreground="Black" FontWeight="SemiBold" BorderThickness="0" 
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                        Click="Close_Window" />
+            </Grid>
+        </DockPanel>
+        
+        <!--Brain Ranking-->
+        <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" BorderBrush="#f60fff" BorderThickness="5" x:Name="Brain_Ranking">
+            
+        </Border>
+        
+        <!--Fotter 1&2-->
+        <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="#f60fff" BorderThickness="5" >
+            <Label Content="Scuffed Mo and Luca Inc" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center"/>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="0"  BorderBrush="#f60fff" BorderThickness="5">
+            <Image Source="Assets/Icon/Lumo.png" Width="Auto" Height="90" Margin="0,-19,0,0"/>
+        </Border>
+        <!--Progress Display-->
+        <Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" BorderBrush="#f60fff" BorderThickness="5" x:Name="Progress_Display">
+            <Image x:Name="Progress" Width="Auto" Height="Auto"/>
+        </Border>
+        <!--Auditional Information Display-->
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="#f60fff" BorderThickness="5" x:Name="Information_Display">
+            <Button Height="50" Width="100" Content="Display Progress" Click="ProgressThing"/>
+        </Border>
+        <!--Computer Information Display-->
+        <Border Grid.Row="2" Grid.Column="1"  BorderBrush="#f60fff" BorderThickness="5" x:Name="Computer_Information">
+
+        </Border>
     </Grid>
 </Window>

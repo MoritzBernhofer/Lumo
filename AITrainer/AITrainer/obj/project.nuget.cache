@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Ne53n+pJwO0YZYkwtkQMWUK+EOraN4Pna/iRlaoVXbnDNMdMCbLkl+aywOPIgD+kywe9p9126dBDHJscfNT+MQ==",
+  "dgSpecHash": "KVZWdlDGgA/nCr7SXDPe2bXI+2/GTk1B9GHyUjdPSPkx3FzcUmKF62wnZ1iVJ7pq64tWYTDxN8/GrNN1uj9xAw==",
   "success": true,
   "projectFilePath": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\AITrainer\\AITrainer\\AITrainer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\flyti\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\flyti\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
