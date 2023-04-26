@@ -1,53 +1,59 @@
-﻿using System.Runtime.Intrinsics.X86;
-using System.Security.Cryptography;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace NumberRecognition.ImageFolder {
     public class ImageHelper {
-        private static int imageSize = 784;
-        private static int imageSizeSqrt = (int)Math.Sqrt(imageSize);
-        private static int[] byteNumbers = { 128, 64, 32, 16, 8, 4, 2, 1 };
+        private const int ImageSize = 784;
+        private const int ImageSizeSqrt = 28;
 
-        public static Image[] LoadImages(string datapath = "../../../Images Mnist.bytes", string labelpath = "../../../Labels Mnist.bytes") {
-            byte[] data = File.ReadAllBytes(datapath);
-            var datalabels = File.ReadAllBytes(labelpath);
-            Image[] images = new Image[data.Length / imageSize];
+        public static async Task<Image[]> LoadImagesAsync(string datapath = "../../../Images Mnist.bytes", string labelpath = "../../../Labels Mnist.bytes") {
+            byte[] data = await File.ReadAllBytesAsync(datapath);
+            byte[] datalabels = await File.ReadAllBytesAsync(labelpath);
+            int imageCount = data.Length / ImageSize;
+            Image[] images = new Image[imageCount];
 
-            int counter = 0;
-            for (int i = 0; i < data.Length / imageSize; i++) {
-                byte[] bytes = new byte[imageSize];
-
-                for (int j = 0; j < bytes.Length; j++)
-                    bytes[j] = data[counter++];
-
-                //here bytes
-                Array.Reverse(bytes);
-                bytes = ReversY180Deg(bytes);
-
+            var range = Enumerable.Range(0, imageCount);
+            Parallel.ForEach(range, i => {
+                byte[] bytes = new byte[ImageSize];
+                Array.Copy(data, i * ImageSize, bytes, 0, ImageSize);
+                MirrorImage(bytes);
+                ReverseY180Deg(bytes);
                 images[i] = new(bytes, datalabels[i], new System.Numerics.Vector2(28, 28));
-            }
+            });
 
             return images;
         }
-        private static byte[] ReversY180Deg(byte[] bytes) {
-            byte[,] array = ConvertTo2DArray(bytes);
-            byte[,] result = new byte[imageSizeSqrt, imageSizeSqrt];
+        private static void ReverseY180Deg(byte[] bytes) {
+            int lastIndex = ImageSizeSqrt - 1;
+            byte temp;
 
-            for (int i = 0; i < array.Length; i++) {
-                result[i % imageSizeSqrt, imageSizeSqrt - 1 - i / imageSizeSqrt] = array[i % imageSizeSqrt, i / imageSizeSqrt];
+            for (int i = 0; i < ImageSize / 2; i++) {
+                int x = i % ImageSizeSqrt;
+                int y = i / ImageSizeSqrt;
+                int targetX = lastIndex - x;
+                int targetY = lastIndex - y;
+
+                int targetIndex = targetY * ImageSizeSqrt + targetX;
+                temp = bytes[i];
+                bytes[i] = bytes[targetIndex];
+                bytes[targetIndex] = temp;
             }
-
-            return ConvertTo1DArray(result);
         }
+        private static void MirrorImage(byte[] bytes) {
+            int lastIndex = ImageSizeSqrt - 1;
+            byte temp;
 
-        private static byte[] ConvertTo1DArray(byte[,] bytes)
-            => bytes.Cast<byte>().ToArray();
+            for (int y = 0; y < ImageSizeSqrt; y++) {
+                for (int x = 0; x < ImageSizeSqrt / 2; x++) {
+                    int index1 = y * ImageSizeSqrt + x;
+                    int index2 = y * ImageSizeSqrt + (lastIndex - x);
 
-        private static byte[,] ConvertTo2DArray(byte[] bytes, int height = 28, int width = 28) {
-            byte[,] output = new byte[height, width];
-            for (int i = 0; i < height; i++)
-                for (int j = 0; j < width; j++)
-                    output[i, j] = bytes[i * width + j];
-            return output;
+                    temp = bytes[index1];
+                    bytes[index1] = bytes[index2];
+                    bytes[index2] = temp;
+                }
+            }
         }
     }
 }

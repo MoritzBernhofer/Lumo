@@ -1,6 +1,5 @@
 // NumberRecognition
 
-using System.Numerics;
 using NumberRecognition.ImageFolder;
 
 namespace NumberRecognition.NeuralNetwork;
