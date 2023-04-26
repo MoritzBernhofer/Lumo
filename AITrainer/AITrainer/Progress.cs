@@ -5,44 +5,28 @@ using System.Numerics;
 namespace AITrainer {
     public class Progress {
         private bool[,] image;
-        private int currentProgress = 0;
-        private int x;
-        private int y;
-        private Random rd = new();
+        private int fillratio = 0;
+        private RandomFilledArray array;
 
         public Progress(int x,int y) {
-            this.x = x;
-            this.y = y;
             image = new bool[x,y];
-
+            array = new(x, y, 0);
         }
-        public void Update(int progressInPercent) {
-            if (progressInPercent < currentProgress) return;
+        public void Update(int addfillratio) {
+            if (fillratio + addfillratio > 100)
+                return;
 
-            int addProgress =  progressInPercent - currentProgress;
-
-            if(addProgress + currentProgress > 100)
-                addProgress = 100 - addProgress;
-
-            int addPixel = (int)Math.Round((double)(x*y) * ((double)addProgress / (double)100));
-
-            while(addPixel > 0 ) {
-                int xcord = rd.Next(0, x);
-                int ycord = rd.Next(0, y);
-
-                if (image[xcord, ycord] == false) {
-                    image[xcord, ycord] = true;
-                    addPixel--;
-                }
-            }
+            fillratio += addfillratio;
+            array.AddFillRatio(addfillratio);
         }
         public Bitmap GetProgress() {
-            if (x == 0 || y == 0) throw new Exception();
+            if (array.X == 0 || array.Y == 0) 
+                throw new Exception();
 
-            Bitmap map = new(x,y);
+            Bitmap map = new(array.X,array.Y);
 
-            for (int i = 0; i < x; i++) {
-                for (int j = 0; j < y; j++) {
+            for (int i = 0; i < array.X; i++) {
+                for (int j = 0; j < array.Y; j++) {
                     if (image[i, j])
                         map.SetPixel(i, j, Color.FromArgb(32, 194, 14));
                 }
