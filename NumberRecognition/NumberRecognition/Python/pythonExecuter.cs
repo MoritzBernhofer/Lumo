@@ -8,7 +8,7 @@ public class PythonExecutor {
         this.scriptPath = scriptPath;
     }
 
-    public void Execute(int number) {
+    public int Execute(int number) {
         // Create a new ProcessStartInfo object to specify the Python script and its arguments
         ProcessStartInfo startInfo = new ProcessStartInfo(pythonPath);
         startInfo.Arguments = $"{scriptPath} {number}";
@@ -26,5 +26,7 @@ public class PythonExecutor {
 
         // Wait for the process to exit
         process.WaitForExit();
+
+        return process.ExitCode;
     }
 }
