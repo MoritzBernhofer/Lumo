@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-class PythonExecutor {
+public class PythonExecutor {
     private string pythonPath;
     private string scriptPath;
 
