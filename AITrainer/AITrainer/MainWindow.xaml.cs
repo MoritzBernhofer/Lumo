@@ -1,20 +1,10 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AITrainer {
     /// <summary>
@@ -22,6 +12,7 @@ namespace AITrainer {
     /// </summary>
     public partial class MainWindow : Window {
         private Progress progress;
+        private int percent = 5;
         public MainWindow() {
             InitializeComponent();
         }
@@ -46,13 +37,30 @@ namespace AITrainer {
         }
 
         private void ProgressThing(object sender, RoutedEventArgs e) {
-            progress = new(new Vector2((int)Math.Round(Progress_Display.Width), (int)Math.Round(Progress_Display.Height)));
-            progress.Update(30);
-            bool[,] array = progress.GetProgress();
+            if (progress == null)
+                progress = new((int)Math.Round(Progress_Display.ActualWidth), (int)Math.Round(Progress_Display.ActualHeight));
 
-            Bitmap newImage = new(array.GetLength(0), array.GetLength(1));
+            progress.Update(percent++);
 
+            Bitmap? map = progress.GetProgress();
+            if (map != null) {
+                Progress.Source = ToBitmapImage(map);
+            }
+        }
+        public BitmapImage ToBitmapImage(Bitmap bitmap) {
+            using (var memory = new MemoryStream()) {
+                bitmap.Save(memory, ImageFormat.Png);
+                memory.Position = 0;
 
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+
+                return bitmapImage;
+            }
         }
     }
 }

@@ -1,35 +1,54 @@
 ﻿using System;
+using System.Drawing;
 using System.Numerics;
 
 namespace AITrainer {
     public class Progress {
         private bool[,] image;
         private int currentProgress = 0;
-        private Vector2 dimensions;
+        private int x;
+        private int y;
         private Random rd = new();
 
-        public Progress(Vector2 dimensions) {
-            this.dimensions.X = (int)Math.Round(dimensions.X);
-            this.dimensions.Y = (int)Math.Round(dimensions.Y);
-            image = new bool[(int)this.dimensions.X, (int)this.dimensions.Y];
+        public Progress(int x,int y) {
+            this.x = x;
+            this.y = y;
+            image = new bool[x,y];
 
         }
         public void Update(int progressInPercent) {
             if (progressInPercent < currentProgress) return;
 
-            int addProgress = currentProgress - progressInPercent;
-            int addPixel = (int)Math.Round(dimensions.X * dimensions.Y) * (addProgress / 100);
+            int addProgress =  progressInPercent - currentProgress;
+
+            if(addProgress + currentProgress > 100)
+                addProgress = 100 - addProgress;
+
+            int addPixel = (int)Math.Round((double)(x*y) * ((double)addProgress / (double)100));
 
             while(addPixel > 0 ) {
-                int x = rd.Next(0, (int)dimensions.X + 1);
-                int y = rd.Next(0, (int)dimensions.Y + 1);
+                int xcord = rd.Next(0, x);
+                int ycord = rd.Next(0, y);
 
-                if (image[x, y] == false) {
-                    image[x, y] = true;
+                if (image[xcord, ycord] == false) {
+                    image[xcord, ycord] = true;
                     addPixel--;
                 }
             }
         }
-        public bool[,] GetProgress() => image;
+        public Bitmap GetProgress() {
+            if (x == 0 || y == 0) throw new Exception();
+
+            Bitmap map = new(x,y);
+
+            for (int i = 0; i < x; i++) {
+                for (int j = 0; j < y; j++) {
+                    if (image[i, j])
+                        map.SetPixel(i, j, Color.FromArgb(32, 194, 14));
+                }
+            }
+
+            return map;
+        }
     }
 }
