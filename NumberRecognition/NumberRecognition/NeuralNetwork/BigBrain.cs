@@ -20,6 +20,10 @@ public class BigBrain {
         for (int i = 0; i < images!.Length; i++) {
             float[] result = nn.Predict(images[i].ImageData);
             score += (GetValueOfHighest(result) == images[i].Value) ? 1 : 0;
+
+            if(i % 1000  == 0) {
+                Console.WriteLine($"at {i}");
+            }
         }
         Console.WriteLine($"done {score}");
     }

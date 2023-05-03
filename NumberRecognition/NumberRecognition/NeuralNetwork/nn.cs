@@ -80,44 +80,32 @@ public class NeuralNetwork {
         return output.ToArray();
     }
     public void Train(byte[] input_array, byte[] target_array) {
-        // Generating the Hidden Outputs
         Matrix inputs = Matrix.FromArray(input_array);
         Matrix hidden = Matrix.Multiply(this.weights_ih, inputs);
         hidden.Add(this.bias_h);
-        // activation function!
         hidden.Map(this.activation_function.Func);
 
-        // Generating the output's output!
         Matrix outputs = Matrix.Multiply(this.weights_ho, hidden);
         outputs.Add(this.bias_o);
         outputs.Map(this.activation_function.Func);
 
-        // Convert array to matrix object
         Matrix targets = Matrix.FromArray(target_array);
 
-        // Calculate the error
-        // ERROR = TARGETS - OUTPUTS
         Matrix output_errors = Matrix.Subtract(targets, outputs);
 
-        // Calculate gradient
         Matrix gradients = Matrix.Map(outputs, this.activation_function.Dfunc);
         gradients.Multiply(output_errors);
         gradients.Multiply(LearningRate);
 
-        // Calculate deltas
         Matrix hidden_T = Matrix.Transpose(hidden);
         Matrix weight_ho_deltas = Matrix.Multiply(gradients, hidden_T);
 
-        // Adjust the weights by deltas
         this.weights_ho.Add(weight_ho_deltas);
-        // Adjust the bias by its deltas (which is just the gradients)
         this.bias_o.Add(gradients);
 
-        // Calculate the hidden layer errors
         Matrix who_t = Matrix.Transpose(this.weights_ho);
         Matrix hidden_errors = Matrix.Multiply(who_t, output_errors);
 
-        // Calculate hidden gradient
         Matrix hidden_gradient = Matrix.Map(
             hidden,
             this.activation_function.Dfunc
@@ -125,7 +113,6 @@ public class NeuralNetwork {
         hidden_gradient.Multiply(hidden_errors);
         hidden_gradient.Multiply(LearningRate);
 
-        // Calcuate input->hidden deltas
         Matrix inputs_T = Matrix.Transpose(hidden_errors);
         Matrix weight_ih_deltas = Matrix.Multiply(hidden_gradient, inputs_T);
 

@@ -10,26 +10,25 @@ class ZuWild {
     private static PythonExecutor pythonExecutor = new(@"C:\Python27\python.exe",
         @"C:\Users\flyti\Documents\GitHubONLY\Lumo\NumberRecognition\NumberRecognition\Python\script.py");
 
-    private static BigBrain[]? Brains = new BigBrain[20];
+    private static BigBrain[]? brains = new BigBrain[20];
     private static readonly int input_Nodes = 784;
     private static readonly int hidden_layers = 20;
     private static readonly int output_Nodes = 10;
 
-
     static async Task Main(string[] args) {
-        Image[] images = await ImageHelper.LoadImagesAsync();
+        // Load images asynchronously
+        Image[] images = await LoadImagesAsyncWrapper();
 
-        //generate brains
-        for (int i = 0; i < Brains!.Length; i++) {
-            Brains[i] = new(input_Nodes, hidden_layers, output_Nodes);
+        // Generate brains
+        for (int i = 0; i < brains!.Length; i++) {
+            brains[i] = new(input_Nodes, hidden_layers, output_Nodes);
         }
 
-        //feed brains with data
-
-        foreach(BigBrain brain in Brains) {
-            await Task.Run(() => brain.Train(images));
+        // Feed brains with data
+        for(int i = 0; i < 10; i++) {
+            Task.Run(() => brains[i].Train(images));
         }
-
+        
 
         Console.ReadKey();
 
@@ -40,8 +39,14 @@ class ZuWild {
             Console.WriteLine("\nPress any key to display the next image...");
             Console.ReadKey();
             counter++;
-
-
         }
     }
+
+    private static async Task<Image[]> LoadImagesAsyncWrapper() {
+        Console.WriteLine("Loading images...");
+        Image[] images = await ImageHelper.LoadImagesAsync();
+        Console.WriteLine("Images loaded successfully.");
+        return images;
+    }
+
 }
