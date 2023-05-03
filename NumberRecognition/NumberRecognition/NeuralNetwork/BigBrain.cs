@@ -1,5 +1,3 @@
-// NumberRecognition
-
 using NumberRecognition.ImageFolder;
 
 namespace NumberRecognition.NeuralNetwork;
@@ -18,11 +16,12 @@ public class BigBrain {
         this.nn = nn;
     }
 
-    public void Train(Image[] images, int id) {
-        for (int i = 0; i < images.Length; i++) {
+    public void Train(Image[]? images) {
+        for (int i = 0; i < images!.Length; i++) {
             float[] result = nn.Predict(images[i].ImageData);
             score += (GetValueOfHighest(result) == images[i].Value) ? 1 : 0;
         }
+        Console.WriteLine($"done {score}");
     }
 
     public void Train(Image image) {

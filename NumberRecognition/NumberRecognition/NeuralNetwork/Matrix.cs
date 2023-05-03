@@ -1,5 +1,3 @@
-namespace NumberRecognition.NeuralNetwork;
-
 public class Matrix {
     private static readonly Random Random = new Random(DateTime.Now.Millisecond);
 

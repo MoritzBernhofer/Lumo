@@ -4,22 +4,26 @@ namespace NumberRecognition.NeuralNetwork;
 
 public static class GeneticAlgorithm {
     public static Random random = new Random(DateTime.Now.Microsecond);
-    
-    public static BigBrain PickOne(BigBrain[] networks) {
+
+    private static BigBrain PickOne(BigBrain[] networks) {
         int index = 0;
         float r = (float)random.NextDouble();
         while (r > 0)
             r -= networks[index++].fitness;
-        BigBrain broHeGotThatSkillllllllllll = new BigBrain(networks[index - 1].nn);
-        broHeGotThatSkillllllllllll.nn.Mutate(global::NeuralNetwork.LearningRate);
-        return broHeGotThatSkillllllllllll;
+        BigBrain best = new(networks[index - 1].nn);
+        best.nn.Mutate(global::NeuralNetwork.LearningRate);
+        return best;
     }
 
-    public static void GenerateNewGeneration(BigBrain[] networks) {
+    public static BigBrain[] GenerateNewGeneration(BigBrain[] networks) {
+        BigBrain[] results = new BigBrain[networks.Length];
+
         CalculateFitness(networks);
         for (int i = 0; i < networks.Length; i++) {
-            networks[i] = PickOne(networks);
+            results[i] = new(PickOne(networks).nn);
         }
+
+        return results;
     }
 
     private static void CalculateFitness(BigBrain[] networks) {

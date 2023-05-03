@@ -70,6 +70,7 @@ public class NeuralNetwork {
         Matrix hidden = Matrix.Multiply(this.weights_ih, inputs);
         hidden.Add(this.bias_h);
 
+
         hidden.Map(this.activation_function.Func);
 
         Matrix output = Matrix.Multiply(this.weights_ho, hidden);
