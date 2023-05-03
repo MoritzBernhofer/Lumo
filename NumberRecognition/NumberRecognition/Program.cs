@@ -25,7 +25,7 @@ class ZuWild {
         }
 
         // Feed brains with data
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 1; i++) {
             Task.Run(() => brains[i].Train(images));
         }
         
