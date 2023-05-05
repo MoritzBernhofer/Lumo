@@ -10,9 +10,9 @@ class ZuWild {
     private static PythonExecutor pythonExecutor = new(@"C:\Python27\python.exe",
         @"C:\Users\flyti\Documents\GitHubONLY\Lumo\NumberRecognition\NumberRecognition\Python\script.py");
 
-    private static NeuralNetwork[]? networks = new NeuralNetwork[20];
+    private static NeuralNetwork[]? networks = new NeuralNetwork[500];
     private static readonly int input_Nodes = 784;
-    private static readonly int hidden_layers = 20;
+    private static readonly int hidden_layers = 100;
     private static readonly int output_Nodes = 10;
 
     static async Task Main(string[] args) {
@@ -20,16 +20,22 @@ class ZuWild {
         Image[] images = await LoadImagesAsyncWrapper();
 
         // Generate brains
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < networks.Length; i++) {
             networks[i] = new(input_Nodes, hidden_layers, output_Nodes);
         }
 
         // Feed brains with data
-        foreach(NeuralNetwork network in networks) {
-            network.Train(images.Take(1000).ToArray());
+
+        var tasks = new List<Task>();
+        for (int i = 0; i < networks.Length; i++) {
+            tasks.Add(networks[i].TrainAsync(images.Take(1000).ToArray()));
         }
-        
-        
+        await Console.Out.WriteLineAsync("started succesfully");
+        await Task.WhenAll(tasks);
+
+        foreach(NeuralNetwork network in networks) {
+            Console.WriteLine(network.Score);
+        }
 
         Console.ReadKey();
 
