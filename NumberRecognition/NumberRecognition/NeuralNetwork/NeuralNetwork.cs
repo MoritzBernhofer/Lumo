@@ -1,6 +1,6 @@
 ﻿using NumberRecognition.ImageFolder;
 
-namespace NumberRecognition.NeuralNetwork;
+namespace NumberRecognition.nn;
 public class NeuralNetwork {
     #region fields
     private Random random = new(DateTime.Now.Millisecond);
@@ -8,6 +8,7 @@ public class NeuralNetwork {
     private int input_Nodes;
     private int hidden_Nodes;
     private int output_Nodes;
+    private int score;
 
     private float[] hidden_Weights;
     private float[] output_Weights;
@@ -23,33 +24,49 @@ public class NeuralNetwork {
 
 
     }
+    public void Train(Image[] images) {
+        foreach (Image image in images) {
+            float[] results = Predict(image);
+            int index = Array.IndexOf(results, results.Max());
+
+            if (index == image.Value)
+                score++;
+        }
+
+    }
     public float[] Predict(Image image) {
         if (image == null && image.ImageData.Length != input_Nodes)
             throw new Exception("Get fucked");
 
-        float[] results = new float[image.ImageData.Length];
 
         float[] inputs = Enumerable.Range(0, image.ImageData.Length)
             .Select(i => (float)i).ToArray();
 
-
         float[] hidden = Multiply(inputs, hidden_Weights);
         hidden = hidden.Zip(hidden_Weights, (a, b) => a + b).ToArray();
+        hidden = Sigmoid(hidden);
 
+        float[] output = Multiply(hidden, output_Weights);
 
-        return results;
+        return output;
     }
     #region Array Functions
     private float[] Multiply(float[] arr1, float[] arr2) {
-        if (arr1 == null || arr2 == null || arr1.Length != arr2.Length) {
-            throw new ArgumentException("Both arrays must be non-null and have the same length.");
-        }
-
-        return arr1.Zip(arr2, (x, y) => x * y).ToArray();
+        return arr1.Zip(arr2, (a, b) => a * b).ToArray();
     }
     private float[] NewRandomizedArray(int length) => Enumerable.Range(0, length)
                          .Select(_ => (float)random.NextDouble())
                          .ToArray();
+    public static float[] Sigmoid(float[] array) {
+        float[] result = new float[array.Length];
+        for (int i = 0; i < array.Length; i++) {
+            result[i] = Sigmoid(array[i]);
+        }
+        return result;
+    }
+    public static float Sigmoid(float x) =>
+        (float)(1 / (1 + Math.Exp(-x)));
+
     #endregion Array Functions
     public void Save() {
         //write to file

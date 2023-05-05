@@ -2,7 +2,7 @@
 using System.Xml;
 using NumberRecognition.ConsoleFolder;
 using NumberRecognition.ImageFolder;
-using NumberRecognition.NeuralNetwork;
+using NumberRecognition.nn;
 
 namespace NumberRecognition;
 class ZuWild {
@@ -10,7 +10,7 @@ class ZuWild {
     private static PythonExecutor pythonExecutor = new(@"C:\Python27\python.exe",
         @"C:\Users\flyti\Documents\GitHubONLY\Lumo\NumberRecognition\NumberRecognition\Python\script.py");
 
-    private static BigBrain[]? brains = new BigBrain[20];
+    private static NeuralNetwork[]? networks = new NeuralNetwork[20];
     private static readonly int input_Nodes = 784;
     private static readonly int hidden_layers = 20;
     private static readonly int output_Nodes = 10;
@@ -20,14 +20,15 @@ class ZuWild {
         Image[] images = await LoadImagesAsyncWrapper();
 
         // Generate brains
-        for (int i = 0; i < brains!.Length; i++) {
-            brains[i] = new(input_Nodes, hidden_layers, output_Nodes);
+        for (int i = 0; i < 1; i++) {
+            networks[i] = new(input_Nodes, hidden_layers, output_Nodes);
         }
 
         // Feed brains with data
-        for(int i = 0; i < 1; i++) {
-            Task.Run(() => brains[i].Train(images));
+        foreach(NeuralNetwork network in networks) {
+            network.Train(images.Take(1000).ToArray());
         }
+        
         
 
         Console.ReadKey();
