@@ -58,3 +58,5 @@ C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\Nu
 C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\NumberRecognition.pdb
 C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.genruntimeconfig.cache
 C:\Desktop\Projekte\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\ref\NumberRecognition.dll
+C:\Users\flyti\Documents\GitHubONLY\Lumo\NumberRecognition\NumberRecognition\bin\Debug\net7.0\MathNet.Numerics.dll
+C:\Users\flyti\Documents\GitHubONLY\Lumo\NumberRecognition\NumberRecognition\obj\Debug\net7.0\NumberRecognition.csproj.CopyComplete

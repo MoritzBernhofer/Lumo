@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "wu8SPcjZHHm4Cp/sobmq/Xh+HUOslXYUciBRCmTYB4EyPdpxSNVFJn9a8LqM+AQkakWFVqlvf5rg8vNkiTFG3Q==",
+  "dgSpecHash": "7k63bEJMItWCysfq5/tokIVuUogZheH3D+la0hjyaJDo2+/a28LtcsLdTkVY+iD0qxiRUSnMSC6mLtOKc2yFCw==",
   "success": true,
   "projectFilePath": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NumberRecognition\\NumberRecognition\\NumberRecognition.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\flyti\\.nuget\\packages\\mathnet.numerics\\5.0.0\\mathnet.numerics.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
