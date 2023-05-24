@@ -29,8 +29,8 @@ public class NeuralNetwork {
         this.hidden_Nodes = hidden_Nodes;
         this.output_Nodes = output_Nodes;
 
-        hidden_Weights = NewRandomizedArray(input_Nodes);
-        output_Weights = NewRandomizedArray(output_Nodes);
+        hidden_Weights = NewRandomizedArray(input_Nodes, 1);
+        output_Weights = NewRandomizedArray(output_Nodes, 1);
 
         hidden_Bias = NewRandomizedArray(hidden_Nodes);
         output_Bias = NewRandomizedArray(output_Nodes);
@@ -74,16 +74,15 @@ public class NeuralNetwork {
         if (image == null && image!.ImageData!.Length != input_Nodes)
             throw new Exception("not valid");
 
-        double[] inputs = Enumerable.Range(0, image.ImageData!.Length)
-            .Select(i => (double)i).ToArray();
+        double[] inputs = image.ImageData!.Select(a => (double)a).ToArray();
 
         double[] hidden = Multiply(inputs, hidden_Weights);
         hidden = hidden.Zip(hidden_Bias, (a, b) => a + b).ToArray();
-        hidden = Sigmoid(hidden);
+        //hidden = Sigmoid(hidden);
 
         double[] output = Multiply(hidden, output_Weights);
         output = hidden.Zip(output_Bias, (a, b) => a + b).ToArray();
-        output = Sigmoid(output);
+        //output = Sigmoid(output);
 
         return output;
     }
@@ -91,8 +90,8 @@ public class NeuralNetwork {
     private double[] Multiply(double[] arr1, double[] arr2) {
         return arr1.Zip(arr2, (a, b) => a * b).ToArray();
     }
-    private double[] NewRandomizedArray(int length) => Enumerable.Range(0, length)
-                         .Select(_ => random.NextDouble())
+    private double[] NewRandomizedArray(int length, int addon = 0) => Enumerable.Range(0, length)
+                         .Select(_ => addon + random.NextDouble())
                          .ToArray();
 
     public static double[] Sigmoid(double[] array) {

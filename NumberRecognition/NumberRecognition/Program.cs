@@ -9,8 +9,8 @@ class ZuWild {
         @"C:\Users\flyti\Documents\GitHubONLY\Lumo\NumberRecognition\NumberRecognition\Python\script.py");
 
     private static int generationsCount = 1000;
-    private static int sampleSize = 10000;
-    private static int imageInputCount = 1000;
+    private static int sampleSize = 1;
+    private static int imageInputCount = 100;
 
     private static NeuralNetwork[]? networks = new NeuralNetwork[sampleSize];
     private static GeneticAlgorithm geneticAlgorithm = new();

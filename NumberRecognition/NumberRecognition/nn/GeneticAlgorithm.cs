@@ -29,14 +29,14 @@ namespace NumberRecognition.nn {
             StringBuilder sb = new();
             foreach(NeuralNetwork network in networks) {
                 sb.AppendLine("---------------");
-                //for(int i = 0; i < network.hidden_Weights.Length; i++) {
+                //for (int i = 0; i < network.hidden_Weights.Length; i++) {
                 //    sb.AppendLine($"{network.hidden_Weights[i]} {network.hidden_Bias[i]}");
                 //}
                 //for (int i = 0; i < network.output_Weights.Length; i++) {
                 //    sb.AppendLine($"{network.output_Weights[i]} {network.output_Bias[i]}");
                 //}
-                foreach(var value in network.gueses) {
-                    sb.Append($"{value};") ;
+                foreach (var value in network.gueses) {
+                    sb.Append($"{value};");
                 }
                 sb.AppendLine($"Score {network.Score}");
             }

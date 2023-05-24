@@ -22,7 +22,7 @@ namespace NumberRecognition.ImageFolder {
                 ReverseY180Deg(bytes);
 
                 for (int y = 0; y < bytes.Length; y++) {
-                    if(bytes[y] == 0 ) {
+                    if (bytes[y] == 0) {
                         bytes[y] += 2;
                     }
                 }
