@@ -1,7 +1,5 @@
 ﻿using MathNet.Numerics.Distributions;
 using NumberRecognition.ImageFolder;
-using System.Runtime.CompilerServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NumberRecognition.nn;
 public class NeuralNetwork {
@@ -13,11 +11,13 @@ public class NeuralNetwork {
     private int hidden_Nodes;
     private int output_Nodes;
 
-    public float[] hidden_Weights;
-    public float[] output_Weights;
+    public double[] hidden_Weights;
+    public double[] output_Weights;
 
-    public float[] hidden_Bias;
-    public float[] output_Bias;
+    public double[] hidden_Bias;
+    public double[] output_Bias;
+
+    public List<int> gueses { get; set; } = new();
     #endregion fields
 
     public int Score => score;
@@ -41,16 +41,16 @@ public class NeuralNetwork {
         hidden_Nodes = network.hidden_Nodes;
         output_Nodes = network.output_Nodes;
 
-        hidden_Weights = (float[])network.hidden_Weights.Clone();
-        output_Weights = (float[])network.output_Weights.Clone();
+        hidden_Weights = (double[])network.hidden_Weights.Clone();
+        output_Weights = (double[])network.output_Weights.Clone();
 
-        hidden_Bias = (float[])network.hidden_Bias.Clone();
-        output_Bias = (float[])network.output_Bias.Clone();
+        hidden_Bias = (double[])network.hidden_Bias.Clone();
+        output_Bias = (double[])network.output_Bias.Clone();
     }
 
     public void Train(Image[] images) {
         foreach (Image image in images) {
-            float[] results = Predict(image);
+            double[] results = Predict(image);
             int index = Array.IndexOf(results, results.Max());
 
             if (index == image.Value)
@@ -60,47 +60,50 @@ public class NeuralNetwork {
     public async Task TrainAsync(Image[] images) {
         await Task.Run(() => {
             foreach (Image image in images) {
-                float[] results = Predict(image);
+                double[] results = Predict(image);
                 int index = Array.IndexOf(results, results.Max());
 
                 if (index == image.Value)
                     Interlocked.Increment(ref score);
+
+                gueses.Add(index);
             }
         });
     }
-    public float[] Predict(Image image) {
-        if (image == null && image.ImageData.Length != input_Nodes)
+    public double[] Predict(Image image) {
+        if (image == null && image!.ImageData!.Length != input_Nodes)
             throw new Exception("not valid");
 
-        float[] inputs = Enumerable.Range(0, image.ImageData.Length)
-            .Select(i => (float)i).ToArray();
+        double[] inputs = Enumerable.Range(0, image.ImageData!.Length)
+            .Select(i => (double)i).ToArray();
 
-        float[] hidden = Multiply(inputs, hidden_Weights);
+        double[] hidden = Multiply(inputs, hidden_Weights);
         hidden = hidden.Zip(hidden_Bias, (a, b) => a + b).ToArray();
         hidden = Sigmoid(hidden);
 
-        float[] output = Multiply(hidden, output_Weights);
+        double[] output = Multiply(hidden, output_Weights);
         output = hidden.Zip(output_Bias, (a, b) => a + b).ToArray();
-        //output = Sigmoid(output);
+        output = Sigmoid(output);
 
         return output;
     }
     #region Array Functions
-    private float[] Multiply(float[] arr1, float[] arr2) {
+    private double[] Multiply(double[] arr1, double[] arr2) {
         return arr1.Zip(arr2, (a, b) => a * b).ToArray();
     }
-    private float[] NewRandomizedArray(int length) => Enumerable.Range(0, length)
-                         .Select(_ => (float)random.NextDouble())
+    private double[] NewRandomizedArray(int length) => Enumerable.Range(0, length)
+                         .Select(_ => random.NextDouble())
                          .ToArray();
-    public static float[] Sigmoid(float[] array) {
-        float[] result = new float[array.Length];
+
+    public static double[] Sigmoid(double[] array) {
+        double[] result = new double[array.Length];
         for (int i = 0; i < array.Length; i++) {
             result[i] = Sigmoid(array[i]);
         }
         return result;
     }
-    public static float Sigmoid(float x) =>
-        (float)(1 / (1 + Math.Exp(-x)));
+    public static double Sigmoid(double x) =>
+        (1 / (1 + Math.Exp(-x)));
 
     #endregion Array Functions
     public void Save() {
@@ -113,7 +116,7 @@ public class NeuralNetwork {
         output_Bias = output_Bias.Select(num => Mutate(num, rate)).ToArray();
     }
 
-    private float Mutate(float value, double rate) {
+    private double Mutate(double value, double rate) {
         value += RandomGaussian(0, rate);
         return value;
     }

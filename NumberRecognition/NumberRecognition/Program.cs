@@ -9,13 +9,13 @@ class ZuWild {
         @"C:\Users\flyti\Documents\GitHubONLY\Lumo\NumberRecognition\NumberRecognition\Python\script.py");
 
     private static int generationsCount = 1000;
-    private static int sampleSize = 100;
-    private static int imageInputCount = 100;
+    private static int sampleSize = 10000;
+    private static int imageInputCount = 1000;
 
     private static NeuralNetwork[]? networks = new NeuralNetwork[sampleSize];
     private static GeneticAlgorithm geneticAlgorithm = new();
     private static readonly int input_Nodes = 784;
-    private static readonly int hidden_layers = 300;
+    private static readonly int hidden_layers = 1000;
     private static readonly int output_Nodes = 10;
     private static double highest = double.MinValue; 
 
@@ -40,6 +40,7 @@ class ZuWild {
         DisplayNetworkScores(networks);
 
         await Console.Out.WriteLineAsync("First run Complete");
+        geneticAlgorithm.SerializeToCSV(networks);
         networks = geneticAlgorithm.GenerateNextGeneration(networks);
         await Console.Out.WriteLineAsync($"Running {generationsCount} Generations");
         Console.ReadKey();
@@ -63,6 +64,7 @@ class ZuWild {
             //await Console.Out.WriteLineAsync($"top: {highest:f2}");
 
             DisplayNetworkScores(networks);
+
 
             if (i != generationsCount - 1) {
                 networks = geneticAlgorithm.GenerateNextGeneration(networks);

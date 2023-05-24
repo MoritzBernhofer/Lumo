@@ -14,11 +14,19 @@ namespace NumberRecognition.ImageFolder {
             Image[] images = new Image[imageCount];
 
             var range = Enumerable.Range(0, imageCount);
+
             Parallel.ForEach(range, i => {
                 byte[] bytes = new byte[ImageSize];
                 Array.Copy(data, i * ImageSize, bytes, 0, ImageSize);
                 MirrorImage(bytes);
                 ReverseY180Deg(bytes);
+
+                for (int y = 0; y < bytes.Length; y++) {
+                    if(bytes[y] == 0 ) {
+                        bytes[y] += 2;
+                    }
+                }
+
                 images[i] = new(bytes, datalabels[i], new System.Numerics.Vector2(28, 28));
             });
 
