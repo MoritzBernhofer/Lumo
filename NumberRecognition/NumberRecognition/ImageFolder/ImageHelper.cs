@@ -6,6 +6,7 @@ namespace NumberRecognition.ImageFolder {
     public class ImageHelper {
         private const int ImageSize = 784;
         private const int ImageSizeSqrt = 28;
+        private static Random rd = new();
 
         public static async Task<Image[]> LoadImagesAsync(string datapath = "../../../Images Mnist.bytes", string labelpath = "../../../Labels Mnist.bytes") {
             byte[] data = await File.ReadAllBytesAsync(datapath);
@@ -22,8 +23,8 @@ namespace NumberRecognition.ImageFolder {
                 ReverseY180Deg(bytes);
 
                 for (int y = 0; y < bytes.Length; y++) {
-                    if (bytes[y] == 0) {
-                        bytes[y] += 2;
+                    if (bytes[y] < 10) {
+                        bytes[y] = (byte)rd.Next(0, 155);
                     }
                 }
 

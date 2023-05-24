@@ -29,8 +29,8 @@ public class NeuralNetwork {
         this.hidden_Nodes = hidden_Nodes;
         this.output_Nodes = output_Nodes;
 
-        hidden_Weights = NewRandomizedArray(input_Nodes, 1);
-        output_Weights = NewRandomizedArray(output_Nodes, 1);
+        hidden_Weights = NewRandomizedArray(input_Nodes);
+        output_Weights = NewRandomizedArray(output_Nodes);
 
         hidden_Bias = NewRandomizedArray(hidden_Nodes);
         output_Bias = NewRandomizedArray(output_Nodes);
@@ -74,19 +74,31 @@ public class NeuralNetwork {
         if (image == null && image!.ImageData!.Length != input_Nodes)
             throw new Exception("not valid");
 
-        double[] inputs = image.ImageData!.Select(a => (double)a).ToArray();
+        double[] inputs = NormalizeArray(image.ImageData!.Select(a => (double)a).ToArray());
 
         double[] hidden = Multiply(inputs, hidden_Weights);
         hidden = hidden.Zip(hidden_Bias, (a, b) => a + b).ToArray();
-        //hidden = Sigmoid(hidden);
+        hidden = Sigmoid(hidden);
 
         double[] output = Multiply(hidden, output_Weights);
         output = hidden.Zip(output_Bias, (a, b) => a + b).ToArray();
-        //output = Sigmoid(output);
+        output = Sigmoid(output);
 
         return output;
     }
     #region Array Functions
+    public double[] NormalizeArray(double[] array) {
+        double min = array.Min();
+        double max = array.Max();
+        double range = max - min;
+
+        if (range == 0)
+            for (int i = 0; i < array.Length; i++)
+                array[i] = 0.5;
+        else
+            array = array.Select(value => (value - min) / range).ToArray();
+        return array;
+    }
     private double[] Multiply(double[] arr1, double[] arr2) {
         return arr1.Zip(arr2, (a, b) => a * b).ToArray();
     }

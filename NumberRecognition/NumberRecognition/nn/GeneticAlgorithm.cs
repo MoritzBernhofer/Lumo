@@ -13,7 +13,7 @@ namespace NumberRecognition.nn {
                 networks[i] = pickOne(nextGeneration.ToArray());
             }
 
-            networks.ToList().ForEach(network => network.MutateNN(5));
+            networks.ToList().ForEach(network => network.MutateNN(0.2));
 
             return networks;
         }
@@ -40,7 +40,7 @@ namespace NumberRecognition.nn {
                 }
                 sb.AppendLine($"Score {network.Score}");
             }
-            string filePath = "output.csv";
+            string filePath = "../../../output.csv";
 
             // Open the file and write the content using StreamWriter
             using (StreamWriter writer = new StreamWriter(filePath)) {

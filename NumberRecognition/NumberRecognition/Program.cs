@@ -9,8 +9,8 @@ class ZuWild {
         @"C:\Users\flyti\Documents\GitHubONLY\Lumo\NumberRecognition\NumberRecognition\Python\script.py");
 
     private static int generationsCount = 1000;
-    private static int sampleSize = 1;
-    private static int imageInputCount = 100;
+    private static int sampleSize = 200;
+    private static int imageInputCount = 200;
 
     private static NeuralNetwork[]? networks = new NeuralNetwork[sampleSize];
     private static GeneticAlgorithm geneticAlgorithm = new();
@@ -90,7 +90,7 @@ class ZuWild {
     private static Image[] GetRandomImages(Image[] images, int length) {
         //int value = new Random()
         //   .Next(0, Math.Min((int)Math.Round(images.Length / 1000.0) * 1000, length));
-        //value from 77k to 0
+        ////value from 77k to 0
 
         //return images.Skip(images.Length - value).Take(length).ToArray();
         return images.Take(length).ToArray();
