@@ -22,11 +22,11 @@ namespace NumberRecognition.ImageFolder {
                 MirrorImage(bytes);
                 ReverseY180Deg(bytes);
 
-                for (int y = 0; y < bytes.Length; y++) {
-                    if (bytes[y] < 10) {
-                        bytes[y] = (byte)rd.Next(0, 155);
-                    }
-                }
+                //for (int y = 0; y < bytes.Length; y++) {
+                //    if (bytes[y] == 0) {
+                //        bytes[y]++;
+                //    }
+                //}
 
                 images[i] = new(bytes, datalabels[i], new System.Numerics.Vector2(28, 28));
             });

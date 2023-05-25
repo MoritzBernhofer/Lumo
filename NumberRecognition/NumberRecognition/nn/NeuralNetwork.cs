@@ -74,33 +74,51 @@ public class NeuralNetwork {
         if (image == null && image!.ImageData!.Length != input_Nodes)
             throw new Exception("not valid");
 
-        double[] inputs = NormalizeArray(image.ImageData!.Select(a => (double)a).ToArray());
+        double[] inputs = Normalize(image.ImageData!.Select(a => (double)a).ToArray());
 
-        double[] hidden = Multiply(inputs, hidden_Weights);
+        double[] hidden = Multiply(hidden_Weights, inputs);
         hidden = hidden.Zip(hidden_Bias, (a, b) => a + b).ToArray();
         hidden = Sigmoid(hidden);
 
-        double[] output = Multiply(hidden, output_Weights);
+        double[] output = Multiply(output_Weights, hidden);
         output = hidden.Zip(output_Bias, (a, b) => a + b).ToArray();
         output = Sigmoid(output);
 
         return output;
     }
     #region Array Functions
-    public double[] NormalizeArray(double[] array) {
-        double min = array.Min();
-        double max = array.Max();
-        double range = max - min;
+    public double[] Normalize(double[] data) {
+        int length = data.Length;
+        double sum = 0;
+        double sumOfSquares = 0;
 
-        if (range == 0)
-            for (int i = 0; i < array.Length; i++)
-                array[i] = 0.5;
-        else
-            array = array.Select(value => (value - min) / range).ToArray();
-        return array;
+        // Calculate the sum and sum of squares
+        for (int i = 0; i < length; i++) {
+            sum += data[i];
+            sumOfSquares += data[i] * data[i];
+        }
+
+        double mean = sum / length;
+        double variance = (sumOfSquares / length) - (mean * mean);
+        double standardDeviation = Math.Sqrt(variance);
+
+        double[] normalizedData = new double[length];
+
+        // Normalize each data point
+        for (int i = 0; i < length; i++) {
+            normalizedData[i] = (data[i] - mean) / standardDeviation;
+        }
+
+        return normalizedData;
     }
+
     private double[] Multiply(double[] arr1, double[] arr2) {
-        return arr1.Zip(arr2, (a, b) => a * b).ToArray();
+        for (int i = 0; i < arr1.Length; i++) {
+            for (int j = 0; j < arr2.Length; j++) {
+                arr1[i] *= arr2[j];
+            }
+        }
+        return arr1;
     }
     private double[] NewRandomizedArray(int length, int addon = 0) => Enumerable.Range(0, length)
                          .Select(_ => addon + random.NextDouble())
