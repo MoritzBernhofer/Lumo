@@ -13,7 +13,7 @@ public class ConsoleHelper {
     public static void PrintImageToConsole(Image img) {
         int counter = 0;
         while (counter < imageSize) {
-            double charindex = Math.Floor(map(img.ImageData![counter++], 0, 255, density.Length - 1, 0));
+            double charindex = Math.Floor(map((float)img.ImageData![counter++], 0, 255, density.Length - 1, 0));
             Console.Write(density[(int)charindex]);
             if (counter % img.Width == 0) {
                 Console.WriteLine();

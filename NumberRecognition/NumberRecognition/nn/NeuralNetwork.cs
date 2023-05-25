@@ -1,11 +1,13 @@
 ﻿using MathNet.Numerics.Distributions;
 using NumberRecognition.ImageFolder;
+using System.IO.IsolatedStorage;
 
 namespace NumberRecognition.nn;
 public class NeuralNetwork {
     #region fields
     private Random random = new(DateTime.Now.Microsecond);
     private volatile int score;
+    private double[] last;
 
     private int input_Nodes;
     private int hidden_Nodes;
@@ -74,42 +76,41 @@ public class NeuralNetwork {
         if (image == null && image!.ImageData!.Length != input_Nodes)
             throw new Exception("not valid");
 
-        double[] inputs = Normalize(image.ImageData!.Select(a => (double)a).ToArray());
+        double[] inputs = CloneToDoubleArray(image.ImageData);
+        inputs = Preprocessing(inputs);
 
         double[] hidden = Multiply(hidden_Weights, inputs);
         hidden = hidden.Zip(hidden_Bias, (a, b) => a + b).ToArray();
-        hidden = Sigmoid(hidden);
+        hidden = ProcessArrays(hidden);
 
         double[] output = Multiply(output_Weights, hidden);
         output = hidden.Zip(output_Bias, (a, b) => a + b).ToArray();
-        output = Sigmoid(output);
+        output = ProcessArrays(output);
 
         return output;
     }
+
+    private double[] CloneToDoubleArray(byte[]? imageData) {
+        double[] data = new double[imageData!.Length];
+
+        for (int i = 0; i < imageData.Length; i++) {
+            data[i] = imageData[i];
+        }
+        return data;
+    }
     #region Array Functions
-    public double[] Normalize(double[] data) {
-        int length = data.Length;
-        double sum = 0;
-        double sumOfSquares = 0;
-
-        // Calculate the sum and sum of squares
-        for (int i = 0; i < length; i++) {
-            sum += data[i];
-            sumOfSquares += data[i] * data[i];
+    public double[] Preprocessing(double[] data) {
+        //goal  0 => 0.8
+        //everything else 0.8 value / 255 
+        for (int i = 0; i < data.Length; i++) {
+            if (data[i] == 0) {
+                data[i] = 0.3;
+            }
+            else {
+                data[i] = 0.5 + data[i] * 0.00392156;
+            }
         }
-
-        double mean = sum / length;
-        double variance = (sumOfSquares / length) - (mean * mean);
-        double standardDeviation = Math.Sqrt(variance);
-
-        double[] normalizedData = new double[length];
-
-        // Normalize each data point
-        for (int i = 0; i < length; i++) {
-            normalizedData[i] = (data[i] - mean) / standardDeviation;
-        }
-
-        return normalizedData;
+        return data;
     }
 
     private double[] Multiply(double[] arr1, double[] arr2) {
@@ -124,12 +125,18 @@ public class NeuralNetwork {
                          .Select(_ => addon + random.NextDouble())
                          .ToArray();
 
-    public static double[] Sigmoid(double[] array) {
-        double[] result = new double[array.Length];
-        for (int i = 0; i < array.Length; i++) {
-            result[i] = Sigmoid(array[i]);
-        }
-        return result;
+    public static double[] ProcessArrays(double[] array) {
+        return NormalizeData(array, 0, 1);
+    }
+    private static double[] NormalizeData(IEnumerable<double> data, int min, int max) {
+        double dataMax = data.Max();
+        double dataMin = data.Min();
+        double range = dataMax - dataMin;
+
+        return data
+            .Select(d => (d - dataMin) / range)
+            .Select(n => (double)((1 - n) * min + n * max))
+            .ToArray();
     }
     public static double Sigmoid(double x) =>
         (1 / (1 + Math.Exp(-x)));
