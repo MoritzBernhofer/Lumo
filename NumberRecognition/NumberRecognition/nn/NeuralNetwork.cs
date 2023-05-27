@@ -99,18 +99,11 @@ public class NeuralNetwork {
         return data;
     }
     #region Array Functions
-    public double[] Preprocessing(double[] data) {
-        //goal  0 => 0.8
-        //everything else 0.8 value / 255 
+    public void Preprocessing(double[] data) {
         for (int i = 0; i < data.Length; i++) {
-            if (data[i] == 0) {
-                data[i] = 0.3;
-            }
-            else {
-                data[i] = 0.5 + data[i] * 0.00392156;
-            }
+            data[i] += 0.00392156;
+
         }
-        return data;
     }
 
     private double[] Multiply(double[] arr1, double[] arr2) {
