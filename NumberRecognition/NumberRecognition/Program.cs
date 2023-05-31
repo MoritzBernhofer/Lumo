@@ -14,8 +14,8 @@ class ZuWild {
 
     private static NeuralNetwork[]? networks = new NeuralNetwork[sampleSize];
     private static GeneticAlgorithm geneticAlgorithm = new();
-    private static readonly int input_Nodes = 784;
-    private static readonly int hidden_layers = 500;
+    private static readonly int input_Nodes = 49;
+    private static readonly int hidden_layers = 80;
     private static readonly int output_Nodes = 10;
     private static double highest = double.MinValue; 
 

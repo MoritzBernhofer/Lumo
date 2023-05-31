@@ -77,13 +77,15 @@ public class NeuralNetwork {
             throw new Exception("not valid");
 
         double[] inputs = CloneToDoubleArray(image.ImageData);
-        inputs = Preprocessing(inputs);
+        inputs = inputs.Select(num => num == 0 ? num + 1 : num).ToArray();
+        inputs = NormalizeData(inputs, 1, 2);
 
-        double[] hidden = Multiply(hidden_Weights, inputs);
+
+        double[] hidden = Multiply((double[])hidden_Weights.Clone(), inputs);
         hidden = hidden.Zip(hidden_Bias, (a, b) => a + b).ToArray();
         hidden = ProcessArrays(hidden);
 
-        double[] output = Multiply(output_Weights, hidden);
+        double[] output = Multiply((double[])output_Weights.Clone(), hidden);
         output = hidden.Zip(output_Bias, (a, b) => a + b).ToArray();
         output = ProcessArrays(output);
 
@@ -99,20 +101,14 @@ public class NeuralNetwork {
         return data;
     }
     #region Array Functions
-    public void Preprocessing(double[] data) {
-        for (int i = 0; i < data.Length; i++) {
-            data[i] += 0.00392156;
-
-        }
-    }
 
     private double[] Multiply(double[] arr1, double[] arr2) {
         for (int i = 0; i < arr1.Length; i++) {
             for (int j = 0; j < arr2.Length; j++) {
-                arr1[i] *= arr2[j];
+                arr2[j] *= arr1[i];
             }
         }
-        return arr1;
+        return arr2;
     }
     private double[] NewRandomizedArray(int length, int addon = 0) => Enumerable.Range(0, length)
                          .Select(_ => addon + random.NextDouble())
@@ -121,7 +117,7 @@ public class NeuralNetwork {
     public static double[] ProcessArrays(double[] array) {
         return NormalizeData(array, 0, 1);
     }
-    private static double[] NormalizeData(IEnumerable<double> data, int min, int max) {
+    private static double[] NormalizeData(IEnumerable<double> data, double min, double max) {
         double dataMax = data.Max();
         double dataMin = data.Min();
         double range = dataMax - dataMin;

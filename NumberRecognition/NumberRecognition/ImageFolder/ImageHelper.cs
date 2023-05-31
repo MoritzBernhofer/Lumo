@@ -19,16 +19,32 @@ namespace NumberRecognition.ImageFolder {
             Parallel.ForEach(range, i => {
                 byte[] bytes = new byte[ImageSize];
                 Array.Copy(data, i * ImageSize, bytes, 0, ImageSize);
-                MirrorImage(bytes);
-                ReverseY180Deg(bytes);
 
-                //for (int y = 0; y < bytes.Length; y++) {
-                //    if (bytes[y] == 0) {
-                //        bytes[y]++;
-                //    }
-                //}
+                byte[] countArray = new byte[49]; // New count array of length 49 for 4x4 blocks
 
-                images[i] = new(bytes, datalabels[i], new System.Numerics.Vector2(28, 28));
+                int countIndex = 0;
+
+                for (int c = 0; c    < 28; c += 4) {
+                    for (int j = 0; j < 28; j += 4) {
+                        byte count = 0;
+
+                        for (int k = c; k < c + 4; k++) {
+                            for (int l = j; l < j + 4; l++) {
+                                int currentIndex = k * 28 + l;
+                                byte value = bytes[currentIndex];
+
+                                if (value < 50) {
+                                    count++;
+                                }
+                            }
+                        }
+
+                        countArray[countIndex] = count;
+                        countIndex++;
+                    }
+                }
+
+                images[i] = new(countArray, datalabels[i], new System.Numerics.Vector2(28, 28));
             });
 
             return images;
