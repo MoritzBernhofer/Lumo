@@ -77,15 +77,15 @@ public class NeuralNetwork {
             throw new Exception("not valid");
 
         double[] inputs = CloneToDoubleArray(image.ImageData);
-        inputs = inputs.Select(num => num == 0 ? num + 1 : num).ToArray();
+        //inputs = inputs.Select(num => num == 0 ? num + 1 : num).ToArray();
         inputs = NormalizeData(inputs, 1, 2);
 
 
-        double[] hidden = Multiply((double[])hidden_Weights.Clone(), inputs);
+        double[] hidden = Multiply(hidden_Weights, inputs);
         hidden = hidden.Zip(hidden_Bias, (a, b) => a + b).ToArray();
         hidden = ProcessArrays(hidden);
 
-        double[] output = Multiply((double[])output_Weights.Clone(), hidden);
+        double[] output = Multiply(output_Weights, hidden);
         output = hidden.Zip(output_Bias, (a, b) => a + b).ToArray();
         output = ProcessArrays(output);
 
@@ -103,12 +103,7 @@ public class NeuralNetwork {
     #region Array Functions
 
     private double[] Multiply(double[] arr1, double[] arr2) {
-        for (int i = 0; i < arr1.Length; i++) {
-            for (int j = 0; j < arr2.Length; j++) {
-                arr2[j] *= arr1[i];
-            }
-        }
-        return arr2;
+
     }
     private double[] NewRandomizedArray(int length, int addon = 0) => Enumerable.Range(0, length)
                          .Select(_ => addon + random.NextDouble())
