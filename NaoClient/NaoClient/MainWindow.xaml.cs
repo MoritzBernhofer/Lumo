@@ -15,6 +15,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
+using System.Threading;
 
 namespace NaoClient {
     /// <summary>
@@ -26,6 +30,7 @@ namespace NaoClient {
         private TcpClient? client = null;
 
         List<byte[]> packets = new();
+
 
         public MainWindow() {
             InitializeComponent();
@@ -61,20 +66,9 @@ namespace NaoClient {
                             while (bytesRead == data.Length);
 
                             // Convert the received bytes to an image
-                            byte[] imageBytes = ms.ToArray();
-                            packets.Add(imageBytes);
-                            //using (MemoryStream imageStream = new MemoryStream(imageBytes)) {
-                            //    // Load the image from the stream
-                            //    BitmapImage bitmapImage = new BitmapImage();
-                            //    bitmapImage.BeginInit();
-                            //    bitmapImage.StreamSource = imageStream;
-                            //    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                            //    bitmapImage.EndInit();
-                            //    bitmapImage.Freeze();
 
-                            //    // Display the image in the Image control
-                            //    ImageControl.Source = bitmapImage;
-                            //}
+                            byte[] imageBytes = ms.ToArray();
+                            CreateBitmap(imageBytes);
                         }
                     }
                     catch (IOException) {
@@ -90,6 +84,28 @@ namespace NaoClient {
             client?.Close();
             listener?.Stop();
             StatusTextBlock.Text = "Server stopped";
+        }
+        private void CreateBitmap(byte[] array) {
+            Bitmap bitmap = ConvertByteArrayToBitmap(array);
+
+            // Display the Bitmap
+            ImageControl.Source = ImageSourceFromBitmap(bitmap);
+        }
+        static Bitmap ConvertByteArrayToBitmap(byte[] imageBytes) {
+            MemoryStream stream = new MemoryStream(imageBytes);
+
+            return new Bitmap(stream);
+        }
+        [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteObject([In] IntPtr hObject);
+
+        public ImageSource ImageSourceFromBitmap(Bitmap bmp) {
+            var handle = bmp.GetHbitmap();
+            try {
+                return Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+            finally { DeleteObject(handle); }
         }
     }
 }

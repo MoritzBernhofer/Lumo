@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "iMCP6FQNzks2Yn034WbXz3rZt7NurNeAf8dKtUMrv4E0aiJmShK8NYEQbQVT7dG5/8Boa3CRMNr6n8XElKUOeA==",
+  "dgSpecHash": "/9VuJ5Ae00FwAVssZ4aoiDZgi//57vskheaVBApdQHs6sfxAOyhiTYhg0edjn9FhF2KNqYg/t0VQIQTGsbbmHQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\flyti\\Documents\\GitHubONLY\\Lumo\\NaoClient\\NaoClient\\NaoClient.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\flyti\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\flyti\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

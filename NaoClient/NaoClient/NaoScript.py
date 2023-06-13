@@ -2,7 +2,7 @@ import cv2
 import socket
 
 # Define the server address and port
-server_address = '10.0.0.201'  # Replace with the IP address of your laptop
+server_address = '10.0.0.154'  # Replace with the IP address of your laptop
 server_port = 12345
 
 # Create a socket and connect to the server
