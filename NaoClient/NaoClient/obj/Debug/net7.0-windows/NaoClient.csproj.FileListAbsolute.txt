@@ -7,7 +7,6 @@ C:\Users\flyti\Documents\GitHubONLY\Lumo\NaoClient\NaoClient\obj\Debug\net7.0-wi
 C:\Users\flyti\Documents\GitHubONLY\Lumo\NaoClient\NaoClient\obj\Debug\net7.0-windows\MainWindow.g.cs
 C:\Users\flyti\Documents\GitHubONLY\Lumo\NaoClient\NaoClient\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\flyti\Documents\GitHubONLY\Lumo\NaoClient\NaoClient\obj\Debug\net7.0-windows\NaoClient_MarkupCompile.cache
-C:\Users\flyti\Documents\GitHubONLY\Lumo\NaoClient\NaoClient\obj\Debug\net7.0-windows\NaoClient_MarkupCompile.lref
 C:\Users\flyti\Documents\GitHubONLY\Lumo\NaoClient\NaoClient\obj\Debug\net7.0-windows\MainWindow.baml
 C:\Users\flyti\Documents\GitHubONLY\Lumo\NaoClient\NaoClient\obj\Debug\net7.0-windows\NaoClient.g.resources
 C:\Users\flyti\Documents\GitHubONLY\Lumo\NaoClient\NaoClient\obj\Debug\net7.0-windows\NaoClient.GeneratedMSBuildEditorConfig.editorconfig

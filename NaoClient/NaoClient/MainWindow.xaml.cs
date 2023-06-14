@@ -1,111 +1,137 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Interop;
+using System.Net.Sockets;
 using System.Threading;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
-namespace NaoClient {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+namespace TCPServer {
     public partial class MainWindow : Window {
-
-        private TcpListener? listener = null;
-        private TcpClient? client = null;
-
-        List<byte[]> packets = new();
-
+        private TcpListener? tcpListener;
+        private Thread? listenThread;
 
         public MainWindow() {
             InitializeComponent();
         }
 
-        private async void StartButton_Click(object sender, RoutedEventArgs e) {
-            // Define the TCP server address and port
-            string serverAddress = "10.0.0.154";
-            int serverPort = 12345;
+        public void StartButton_Click(object sender, RoutedEventArgs e) {
+            // Start the TCP server on a separate thread
+            listenThread = new Thread(new ThreadStart(ListenForClients));
+            listenThread.Start();
+            Console.WriteLine("Server started");
+        }
+
+        private void ListenForClients() {
+            // Define the server address and port
+            IPAddress ipAddress = IPAddress.Parse("10.0.0.154");  // Replace with the IP address of your server
+            int port = 12345;
 
             // Create a TCP listener
-            listener = new TcpListener(IPAddress.Parse(serverAddress), serverPort);
-            listener.Start();
+            tcpListener = new TcpListener(ipAddress, port);
+            tcpListener.Start();
 
-            // Accept a client connection
-            StatusTextBlock.Text = "Waiting";
+            while (true) {
+                // Accept incoming client connections
+                TcpClient client = tcpListener.AcceptTcpClient();
 
-            client = await listener.AcceptTcpClientAsync();
-            StatusTextBlock.Text = "Connected to client: " + ((IPEndPoint)client.Client.RemoteEndPoint).Address;
+                // Start a new thread to handle the client connection
+                Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClientConnection));
+                clientThread.Start(client);
+            }
+        }
 
-            // Receive and display images
-            using (NetworkStream stream = client.GetStream()) {
+        private void HandleClientConnection(object clientObj) {
+            TcpClient client = (TcpClient)clientObj;
+            Console.WriteLine("Client connected: " + client.Client.RemoteEndPoint);
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            int totalBytesRead = 0;
+            DateTime startTime = DateTime.Now;
+            int imageSize = 921600; // Size of a single image in bytes
+
+
+            using (MemoryStream ms = new MemoryStream()) {
                 while (true) {
-                    try {
-                        // Receive the image data
-                        byte[] data = new byte[4096];
-                        using (MemoryStream ms = new MemoryStream()) {
-                            int bytesRead;
-                            do {
-                                bytesRead = await stream.ReadAsync(data, 0, data.Length);
-                                ms.Write(data, 0, bytesRead);
-                            }
-                            while (bytesRead == data.Length);
+                    // Read the image data from the client
+                    bytesRead = client.GetStream().Read(buffer, 0, buffer.Length);
+                    ms.Write(buffer, 0, bytesRead);
+                    totalBytesRead += bytesRead;
 
-                            // Convert the received bytes to an image
+                    // Check if a complete image has been received
+                    if (totalBytesRead >= imageSize) {
+                        // Process the received image data (e.g., save it to a file)
 
-                            byte[] imageBytes = ms.ToArray();
-                            CreateBitmap(imageBytes);
+                        byte[] imageBytes = ms.ToArray();
+
+                        byte[] pattern = { 255, 216 };
+
+                        int index = FindPattern(imageBytes, pattern);
+
+                        if (index == -1) {
+                            break;
                         }
-                    }
-                    catch (IOException) {
-                        // Connection closed by the client
-                        break;
+
+                        byte[] save = imageBytes;
+
+                        imageBytes = new byte[imageSize];
+                        for (int i = 0; i < 921595; i++) { //921595 because minus 5 from the pattern
+                            imageBytes[i] = save[index++];
+                            if (index >= imageSize) {
+                                break;
+                            }
+                        }
+
+
+                        // Update the transfer rate text block on the UI thread
+                        Dispatcher.Invoke(() => {
+                            TransferRateTextBlock.Text = totalBytesRead.ToString();
+                        });
+
+                        // Display the image in a WPF Image control
+                        Dispatcher.Invoke(() => {
+                            BitmapImage imageSource = new BitmapImage();
+                            imageSource.BeginInit();
+                            imageSource.StreamSource = new MemoryStream(imageBytes);
+                            imageSource.EndInit();
+                            YourImageControl.Source = imageSource;
+                        });
+
+                        // Reset the stream and counters for the next image
+                        ms.SetLength(0);
+                        totalBytesRead = 0;
                     }
                 }
             }
         }
 
-        private void StopButton_Click(object sender, RoutedEventArgs e) {
-            // Close the client and listener
-            client?.Close();
-            listener?.Stop();
-            StatusTextBlock.Text = "Server stopped";
-        }
-        private void CreateBitmap(byte[] array) {
-            Bitmap bitmap = ConvertByteArrayToBitmap(array);
 
-            // Display the Bitmap
-            ImageControl.Source = ImageSourceFromBitmap(bitmap);
+        public void StopButton_Click(object sender, RoutedEventArgs e) {
+            // Stop the TCP listener and join the listen thread
+            tcpListener.Stop();
+            listenThread.Join();
+            Console.WriteLine("Server stopped");
         }
-        static Bitmap ConvertByteArrayToBitmap(byte[] imageBytes) {
-            MemoryStream stream = new MemoryStream(imageBytes);
+        public static int FindPattern(byte[] byteArray, byte[] pattern) {
+            for (int i = 0; i < byteArray.Length - pattern.Length + 1; i++) {
+                bool found = true;
+                for (int j = 0; j < pattern.Length; j++) {
+                    if (byteArray[i + j] != pattern[j]) {
+                        found = false;
+                        break;
+                    }
+                }
 
-            return new Bitmap(stream);
-        }
-        [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool DeleteObject([In] IntPtr hObject);
-
-        public ImageSource ImageSourceFromBitmap(Bitmap bmp) {
-            var handle = bmp.GetHbitmap();
-            try {
-                return Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                if (found) {
+                    return i;
+                }
             }
-            finally { DeleteObject(handle); }
+
+            return -1; // Pattern not found
         }
     }
 }
