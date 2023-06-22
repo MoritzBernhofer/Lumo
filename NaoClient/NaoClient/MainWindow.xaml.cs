@@ -27,7 +27,7 @@ namespace TCPServer {
 
         private void ListenForClients() {
             // Define the server address and port
-            IPAddress ipAddress = IPAddress.Parse("172.17.210.91");  // Replace with the IP address of your server
+            IPAddress ipAddress = IPAddress.Parse("10.0.0.154");  // Replace with the IP address of your server
             int port = 12345;
 
             // Create a TCP listener
