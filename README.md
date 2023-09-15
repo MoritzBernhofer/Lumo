@@ -1,4 +1,4 @@
-## Documentation by Moritz Bernhofer for Qeustions (discord: moritz0000) 
+## Documentation by Moritz Bernhofer for Qeustions (discord: xdmoritz) 
 
 Folder "Data" contains data used for training the neuralnetwork. </b>
 
